@@ -45,7 +45,10 @@ class DefaultNamer
 
         // transliterate
         if (function_exists('iconv')) {
+            $locale = setlocale(LC_CTYPE, 0);
+            setlocale(LC_CTYPE, "fr_FR.UTF-8");
             $name = iconv('utf-8', 'us-ascii//TRANSLIT', $name);
+            setlocale(LC_CTYPE, $locale);
         }
         return strtolower($name);
     }
