@@ -7,6 +7,7 @@ use Iphp\FileStoreBundle\FileStorage\FileStorageInterface;
 use Iphp\FileStoreBundle\DataStorage\DataStorageInterface;
 use Iphp\FileStoreBundle\Mapping\PropertyMappingFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -76,26 +77,15 @@ class FileType extends AbstractType
         $builder->addEventSubscriber($subscriber);
 
 
-        $builder->add('file', 'file', array('required' => false))
-            ->add('delete', 'checkbox', array('required' => false))
+        $builder->add('file', \Symfony\Component\Form\Extension\Core\Type\FileType::class, array('required' => false))
+            ->add('delete', CheckboxType::class, array('required' => false))
             ->addViewTransformer($transformer);
 
         //for sonata admin
         //    ->addViewTransformer(new FileDataViewTransformer());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'form';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'iphp_file';
     }

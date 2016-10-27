@@ -40,7 +40,7 @@ class FileTypeBindSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(FormEvents::PRE_BIND => 'preBind');
+        return array(FormEvents::PRE_SET_DATA => 'preBind');
     }
 
 
